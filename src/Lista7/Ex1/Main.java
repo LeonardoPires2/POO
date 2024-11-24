@@ -10,7 +10,7 @@ public class Main {
         Quadrado quadrado = new Quadrado();
         quadrado.setLadoDoQuadrado(ladoDoQuadrado);
 
-        System.out.println("Funcionario: " + quadrado.getLadoDoQuadrado());
+        System.out.println("Eletrodomestico: " + quadrado.getLadoDoQuadrado());
         System.out.println("Área: " + quadrado.getAreaQuadrado() + " cm²");
         System.out.println("Perímetro: " + quadrado.getPerimetroQuadrado() + " cm");
         System.out.println("Diagonal: " + quadrado.getDiagonalQuadrado() + " cm");

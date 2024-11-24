@@ -19,40 +19,43 @@ public class CC extends Conta {
     public void sacarDinheiro(double valor) {
         double saldoInicial = getSaldo();
         double valorDisponivel = saldoInicial + limite;
-        double saldo = getSaldo();
 
-        if (valor <= 0) {
-            System.out.println("Valor de saque inválido.");
-            return;
-        } else if (valor > valorDisponivel) {
-            System.out.printf("Saldo e limite insuficientes. Saldo disponível: R$ %.2f\n", valorDisponivel);
-            return;
+        if (saldoInicial < 0) {
+            valorDisponivel = limite;
         }
-
-        setSaldo(saldo -= valor);
-        if (getSaldo() < 0) {
-            double valorExcedido = Math.abs(getSaldo());
-            limite -= valorExcedido;
-            System.out.printf("Limite ajustado para R$ %.2f\n", limite);
+        if (valor <= valorDisponivel) {
+            valorDisponivel -= valor;
+            setSaldo(saldoInicial -= valor);
+            if (saldoInicial < 0) {
+                limite = valorDisponivel;
+            }
+            if (valorDisponivel != limite && getSaldo() < 0) {
+                double valorExcedido = Math.abs(getSaldo());
+                limite -= valorExcedido;
+            }
+            System.out.printf("Saque de R$ %.2f realizado com sucesso.\n", valor);
+        } else {
+            System.out.println("Operação não realizada.Saldo insuficiente na conta corrente");
         }
-
-        System.out.printf("Saque de R$ %.2f realizado com sucesso.\n", valor);
         exibirInfo();
     }
 
     @Override
     public void depositarDinheiro(double valor) {
         super.depositarDinheiro(valor);
+        if (getSaldo() < 0) {
+            limite += valor;
+        }
         exibirInfo();
 
     }
 
     public void exibirInfo() {
-        System.out.println("Conta{" + "Titular = " + getNomeTitular() + ", Saldo = " + getSaldo() + "(Limite " + limite + ")");
+        System.out.println("FuncionarioHorista{" + "Titular = " + getNomeTitular() + ", Saldo = " + getSaldo() + "(Limite " + limite + ")");
     }
 
     @Override
     public String toString() {
-        return "Conta{" + "Titular = " + getNomeTitular() + ", Saldo = " + getSaldo() + "(Limite " + limite + ")";
+        return "FuncionarioHorista{" + "Titular = " + getNomeTitular() + ", Saldo = " + getSaldo() + "(Limite " + limite + ")";
     }
 }
